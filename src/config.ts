@@ -14,17 +14,17 @@ export type Config = {
     pwd: string,
 }
 
-function getPwd(opts: Opts): string {
+export function getPwd(opts: Opts): string {
     if (opts.pwd) return opts.pwd;
 
     return process.cwd();
 }
 
-function getConfig(opts: Opts): string {
+export function getConfig(opts: Opts): string {
     if (opts.config) return opts.config;
 
     const home = process.env["HOME"];
-    const location = process.env["WDG_CONFIG_HOME"];
+    const location = process.cwd();
     if (!location) throw new Error('unable to determine config location.');
 
     if (location === home) {
@@ -35,7 +35,7 @@ function getConfig(opts: Opts): string {
 
 }
 
-function getArgs(opts: Opts): string[] {
+export function getArgs(opts: Opts): string[] {
     if (!opts.args || opts.args.length === 0) return [];
 
     const operation = getOperation(opts);
@@ -61,11 +61,11 @@ function getArgs(opts: Opts): string[] {
     
 }
 
-function getOperation(opts: Opts): Operation {
+export function getOperation(opts: Opts): Operation {
     if (!opts.args || opts.args.length === 0) return Operation.Print;
 
-    if (opts[0] === "add") return Operation.Add;
-    if (opts[0] === "rm") return Operation.Remove;
+    if (opts.args[0] === "add") return Operation.Add;
+    if (opts.args[0] === "rm") return Operation.Remove;
     
     
     return Operation.Print;
