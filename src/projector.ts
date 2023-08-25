@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import {Config} from "./config";
 
-type Data = {
+export type Data = {
     projector: {
         // key -> value
         [key: string]: {
@@ -15,7 +15,7 @@ const defaultData: Data = {
     projector: {}
 };
 
-class Projector {
+export default class Projector {
 
     constructor(private config: Config,private data: Data){}
 
